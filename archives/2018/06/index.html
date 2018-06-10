@@ -1,248 +1,370 @@
-<!DOCTYPE html>
+<!doctype html>
+<html lang="en">
+
+<!-- Head -->
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="description" content="">
-    <meta name="keyword"  content="">
-    <link rel="shortcut icon" href="/img/favicon.ico">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/img/myface.png">
+
+    
 
     <title>
         
-        roonly小贼先生的博客 | roonly&#39;s Blog
-        
+        小贼先生
     </title>
 
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- Custom Fonts -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Plugin CSS -->
+
+
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/aircloud.css">
-    <link rel="stylesheet" href="/css/gitment.css">
-    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
-    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
-    <!-- ga & ba script hoook -->
-    <script></script>
+    <!-- ↓这是stylus文件 -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/toc.css">
+
+
 </head>
+<body></body>
+
 
 <body>
 
-<div class="site-nav-toggle" id="site-nav-toggle">
-    <button>
-        <span class="btn-bar"></span>
-        <span class="btn-bar"></span>
-        <span class="btn-bar"></span>
-    </button>
-</div>
-
-<div class="index-about">
-    <i> 我的code，一块砖一块砖垒成未来的样子 </i>
-</div>
-
-<div class="index-container">
+<!-- Header -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header {
+     
+        /* background-image: url('/img/header-img.png'); */
+        /*page*/
     
-    <div class="index-left">
+    }
+    .navbar-custom .navbar-brand{
+     
+        color: #000;
+        /*page*/
+    
+    }
+
+    .navbar-custom .navbar-subtitle{
+    
+    }
+    
+    @media only screen and (min-width: 768px) {
+        .navbar-custom .nav li a{
         
-<div class="nav" id="nav">
-    <div class="avatar-name">
-        <div class="avatar">
-            <img src="/img/myface.jpeg" />
-        </div>
-        <div class="name">
-            <i>roonly</i>
+        }
+    }
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <!-- 文章 -->
+                
+                <div class="site-heading">
+                    <!-- <h1>小贼先生</h1> -->
+                    <!--<hr class="small">-->
+                    <!-- <span class="subheading">我的code，一块砖一块砖垒成未来的样子</span> -->
+                </div>
+                
+
+            </div>
         </div>
     </div>
-    <div class="contents" id="nav-content">
-        <ul>
-            <li >
-                <a href="/">
-                    <i class="iconfont icon-shouye1"></i>
-                    <span>HOME</span>
-                </a>
-            </li>
-            <li >
-                <a href="/tags">
-                    <i class="iconfont icon-biaoqian1"></i>
-                    <span>TAGS</span>
-                </a>
-            </li>
-            <li  class=active >
-                <a href="/archives">
-                    <i class="iconfont icon-guidang2"></i>
-                    <span>ARCHIVES</span>
-                </a>
-            </li>
-            <li >
-                <a href="/about/">
-                    <i class="iconfont icon-guanyu2"></i>
-                    <span>ABOUT</span>
-                </a>
-            </li>
+</header>
+
+<!-- Nav -->
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">小贼先生</a>
+            <span class="navbar-subtitle">
+                我的code，一块砖一块砖垒成未来的样子
+            </span>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    
+                    <li><a href="/">首页</a></li>
+                    
+                    <li><a href="/archives">所有文章</a></li>
+                    
+                    <li><a href="/about">关于我</a></li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+<!-- Content -->
+<div class="container">
+    <div class="row">
+        <!-- Post Container -->
+        <div class="
+                col-lg-8 col-lg-offset-1
+                col-md-8 col-md-offset-1
+                col-sm-12
+                col-xs-12
+                post-container
+            ">
+
             
-        </ul>
-    </div>
+
+            <div class=" post-list">
+                <div class="layout-top">
+                    <h5 class="post-subtitle">
+                        2018-06-07 <i class="fa fa-bookmark"></i>
+                    </h5>
+                </div>
+                <div class="layout-bottom">
+                    <div class="post-content-container">
+                        <a href="/2018/06/07/hello-world/">
+                            <h2 class="post-title">Hello World</h2>
+                        </a>
+
+                        <div class="post-list-tags">
+                            <span><i class="fa fa-tag"></i></span>
+                            
+                            <a class="tag" href="/tags/javascript">javascript</a>
+                            
+                            <a class="tag" href="/tags/onepiece">onepiece</a>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+
+            <!-- Pager -->
+            <ul class="pager">
     
-</div>
-
-
-<div class="search-field" id="search-field">
-    <div class="search-container">
-        <div class="search-input">
-            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
-            <input id="search-input"/>
-            <span id="begin-search">search</span>
-        </div>
-        <div class="search-result-container" id="search-result-container">
-
-        </div>
-    </div>
-</div>
-        <div class="index-about-mobile">
-            <i> 我的code，一块砖一块砖垒成未来的样子 </i>
-        </div>
-    </div>
     
-    <div class="index-middle">
-        <!-- Main Content -->
-        
+</ul>
+        </div>
 
+        <!-- Sidebar -->
+        <!-- Sidebar container-->
+<div class="col-lg-3 col-lg-offset-0 col-md-3 col-md-offset-0 col-sm-12 col-xs-12 sidebar-container">
+    <div class="bs-docs-sidebar">
 
-<!-- 归档列表 -->
+        <!-- archiveWidget -->
+        <div class="archiveWidget">
+            <h3 style="text-align: center;">文章分类</h3>
 
-<div class="archives-container">
+            <div id="archive">
+                
 
-<div class="one-tag-list">
-                <span class="fa fa-calendar-times-o listing-seperator" id="2018">
-                    <span class="tag-text">2018</span>
-                </span>
-    <ul>
-        
-        <!-- <li class="listing-item">
-        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-        </li> -->
-        <li >
-            <span>06-07</span>
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2018/06/07/第一篇文章/">
-                        <span>
-                            第一篇文章
-                        </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-        </li>
-        
-        <!-- <li class="listing-item">
-        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-        </li> -->
-        <li >
-            <span>06-07</span>
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2018/06/07/hello-world/">
-                        <span>
-                            Hello World
-                        </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-        </li>
-        
+                
+                <div class="panel">
+                    <div class="archive">
+                        <a class="archiveName" data-archive="2017archive"
+                           data-parent="#accordion"
+                           data-target="#2017archive"
+                           href="/archives/2017/">
+                            <h5>2017 (1)</h5>
+                        </a>
+                    </div>
+                    <div id="/archives/2017/">
+                        <ul>
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            <li>
+                                <a class="archiveName" data-parchive="2017archive"
+                                   data-archive="201712archive"
+                                   href="/archives/2017/12/">
+                                    
+                                   <h5>十二月
+                                        (1)</h5>
+                                </a>
+                            </li>
+                            
+                            
+                        </ul>
+                    </div>
+                </div>
 
-    </ul>
-</div>
+                
+                <div class="panel">
+                    <div class="archive">
+                        <a class="archiveName" data-archive="2018archive"
+                           data-parent="#accordion"
+                           data-target="#2018archive"
+                           href="/archives/2018/">
+                            <h5>2018 (1)</h5>
+                        </a>
+                    </div>
+                    <div id="/archives/2018/">
+                        <ul>
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            <li>
+                                <a class="archiveName" data-parchive="2018archive"
+                                   data-archive="201806archive"
+                                   href="/archives/2018/06/">
+                                    
+                                   <h5>六月
+                                        (1)</h5>
+                                </a>
+                            </li>
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                        </ul>
+                    </div>
+                </div>
 
+                
+            </div>
+        </div>
+
+        <!-- tagWidget -->
+        <div class="tagWidget"
+             style="margin-top: 55px;">
+            <h3 style="text-align: center;">标签</h3>
+            <div class="tag">
+
+                
+
+                <a data-tag="javascript"
+                   href="/tags/javascript/">javascript (2)</a>
+                
+
+                <a data-tag="onepiece"
+                   href="/tags/onepiece/">onepiece (1)</a>
+                
+            </div>
+
+        </div>
+    </div>
 </div>
     </div>
 </div>
 
-
-<footer class="footer">
-    <ul class="list-inline text-center footer-icons">
-        
-            <li>
-                <a target="_blank" href="https://github.com/roonly">
-                    <span class="fa-stack fa-lg">
-                        <i class="iconfont icon-github"></i>
-                    </span>
-                </a>
-            </li>
-        
-
-        
-            <li>
-                <a target="_blank" href="https://juejin.im/user/5abb7ac8f265da23961271e6">
-                    <span class="fa-stack fa-lg">
-                        <i class="iconfont icon-juejin" 
-                            style="display: inline-block; width: 80%; height: 80%; background: url(http://oxk008h6r.bkt.clouddn.com/juejin-w.png) no-repeat; background-size: auto 100%; background-position: 0 3px;"
-                        ></i>
-                    </span>
-                </a>
-            </li>
-        
-
-        
-        
-        <li>
-            <a target="_blank" href="https://www.zhihu.com/people/webr">
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/ronffy">
                             <span class="fa-stack fa-lg">
-                                 <i class="iconfont icon-zhihu"></i>
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
                             </span>
-            </a>
-        </li>
-        
+                        </a>
+                    </li>
+                
 
-        
-        <li>
-            <a target="_blank" href="http://weibo.com/roonly">
-                            <span class="fa-stack fa-lg">
-                                  <i class="iconfont icon-weibo"></i>
-                            </span>
-            </a>
-        </li>
-        
-
-        
-
-        
-
-    </ul>
-    
-    <p>
-        <span>/</span>
-        
-        <span><a href="https://stackoverflow.com/">stackoverflow</a></span>
-        <span>/</span>
-        
-        <span><a href="https://juejin.im/">掘金</a></span>
-        <span>/</span>
-        
-        <span><a href="https://segmentfault.com/">segmentfault</a></span>
-        <span>/</span>
-        
-    </p>
-    
-    <p>
-        <span id="busuanzi_container_site_pv">
-            <span id="busuanzi_value_site_pv"></span>PV
-        </span>
-        <span id="busuanzi_container_site_uv">
-            <span id="busuanzi_value_site_uv"></span>UV
-        </span>
-        Created By <a href="https://hexo.io/">Hexo</a>  Author <a href="https://github.com/roonly">Roonly</a></p>
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; 小贼先生 2018
+                    <br>
+                    Theme by <a href="https://ronffy.github.io">Ronffy</a>
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                </p>
+            </div>
+        </div>
+    </div>
 </footer>
+
+<!-- jQuery -->
+<script src="https://cdn.staticfile.org/jquery/2.2.4/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/script.js"></script>
 
 
 
 
 </body>
-
-<script>
-    // We expose some of the variables needed by the front end
-    window.hexo_search_path = ""
-    window.hexo_root = "/"
-    window.isPost = false
-</script>
-<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
-<script src="/js/index.js"></script>
-<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
 </html>
