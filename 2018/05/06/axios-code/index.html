@@ -49,29 +49,26 @@
 <!-- Post Header -->
 <style type="text/css">
     header.intro-header {
-     
-        background-image: url('/img/header-img.png');
-        /*post*/
-    
-    }
-    .navbar-custom .navbar-brand{
-     
-        color: #fff;
-        /*post*/
-    
+        background-color: #000;
+            /*post*/
+            
     }
 
-    .navbar-custom .navbar-subtitle{
-     
-        display: none;
-    
+    .navbar-custom .navbar-brand {
+        color: #fff;
+            /*post*/
+            
     }
-    
+
+    .navbar-custom .navbar-subtitle {
+        display: none;
+            
+    }
+
     @media only screen and (min-width: 768px) {
-        .navbar-custom .nav li a{
-         
+        .navbar-custom .nav li a {
             color: #fff;
-        
+                
         }
     }
 </style>
@@ -82,12 +79,16 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <!-- 文章 -->
                 
-                <div class="post-heading">
-                    <h1>Axios源码深度剖析 - XHR篇</h1>
-                    <h2 class="subheading">axios 是一个基于 Promise 的http请求库，本文将从源码深度剖析其实现原理</h2>
-                </div>
-                <!-- 非文章 -->
-                
+                    <div class="post-heading">
+                        <h1>
+                            Axios源码深度剖析 - XHR篇
+                        </h1>
+                        <h2 class="subheading">
+                            axios 是一个基于 Promise 的http请求库，本文将从源码深度剖析其实现原理
+                        </h2>
+                    </div>
+                    <!-- 非文章 -->
+                    
 
             </div>
         </div>
@@ -148,16 +149,7 @@
                 col-sm-12
                 col-xs-12
                 post-container
-            ">
-
-            <!-- <div>
-                <span>
-                     作者: ronffy
-                </span>
-                <span>
-                    日期: 2018-05-06
-                </span>
-            </div> -->
+            " style="padding-top: 15px;">
 
             <p><a href="https://github.com/axios/axios" target="_blank" rel="noopener">axios</a> 是一个基于 Promise 的http请求库，可以用在浏览器和node.js中，目前在github上有 42K 的star数</p>
 <h3 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h3><ol>
@@ -351,10 +343,6 @@
             
             <!-- Pager -->
             <ul class="pager">
-                
-                <li class="previous">
-                    <a href="/2018/06/12/hello/" >&larr; woshi hello 标题</a>
-                </li>
                 
                 
                 <li class="next">
