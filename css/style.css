@@ -562,6 +562,7 @@ footer .copyright a:focus {
     padding: 2px 5px;
     margin: 2px;
     border-radius: 2px;
+    font-size: 14px;
 }
 
 .tagWidget a:hover, .tagWidget a.active {
