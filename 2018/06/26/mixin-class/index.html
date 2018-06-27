@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+
+<!-- Head -->
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/img/mylogo.png">
+
+    
+
+    <title>
+        
+        Mixin配合class实现多继承的绝佳妙用 |
+        
+        小贼先生
+    </title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- Custom Fonts -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Plugin CSS -->
+
+
+    <!-- Custom CSS -->
+    <!-- ↓这是stylus文件 -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/toc.css">
+
+
+</head>
+<body></body>
+
+
+<body>
+
+<!-- Header -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header {
+        background-color: #000;
+            /*post*/
+            
+    }
+
+    .navbar-custom .navbar-brand {
+        color: #fff;
+            /*post*/
+            
+    }
+
+    .navbar-custom .navbar-subtitle {
+        display: none;
+            
+    }
+
+    @media only screen and (min-width: 768px) {
+        .navbar-custom .nav li a {
+            color: #fff;
+                
+        }
+    }
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <!-- 文章 -->
+                
+                    <div class="post-heading">
+                        <h1>
+                            Mixin配合class实现多继承的绝佳妙用
+                        </h1>
+                        <h2 class="subheading">
+                            mixin：把一个对象的方法和属性拷贝到另一个对象上；也可以简单理解为能够被继承的类， 最终目的是实现代码的复用。
+                        </h2>
+                    </div>
+                    <!-- 非文章 -->
+                    
+
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Nav -->
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">小贼先生</a>
+            <span class="navbar-subtitle">
+                我的code，一块砖一块砖垒成未来的样子
+            </span>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    
+                    <li><a href="/">首页</a></li>
+                    
+                    <li><a href="/archives">所有文章</a></li>
+                    
+                    <li><a href="/about">关于我</a></li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+<!-- Content -->
+<!-- Content -->
+<div class="container" data-type="post">
+    <div class="row">
+        <!-- Post container -->
+
+        <div class="
+                col-lg-8 col-lg-offset-1
+                col-md-8 col-md-offset-1
+                col-sm-12
+                col-xs-12
+                post-container
+            " style="padding-top: 15px;">
+
+            <h2 id="什么是mixin"><a href="#什么是mixin" class="headerlink" title="什么是mixin"></a>什么是mixin</h2><p>mixin一般翻译为“混入”、“混合”,<br>早期一般解释为：把一个对象的方法和属性拷贝到另一个对象上；<br>也可以简单理解为能够被继承的类，<br>最终目的是实现代码的复用。</p>
+<h2 id="从一个需求说起"><a href="#从一个需求说起" class="headerlink" title="从一个需求说起"></a>从一个需求说起</h2><p>为了使你能够最快的清楚我在说什么，我们从一个需求说起：</p>
+<p>一个项目中有多个弹层需求；<br>一些是公共方法，比如点击关闭按钮关闭弹层；<br>一些弹层是可以拖动的，且有蒙层；<br>一些弹层是可以缩放的；<br>其他都是业务方法，无可复用性。</p>
+<p>你可以先在心里想下，如果是你，你会怎样完成这个需求？</p>
+<h2 id="脑海中规划下"><a href="#脑海中规划下" class="headerlink" title="脑海中规划下"></a>脑海中规划下</h2><p>我们为公共方法写个类：<code>BaseModal</code><br>为可拖动的弹层写个类：<code>DragModal</code><br>为可缩放的弹层写个类：<code>ScaleModal</code><br>为自定义的业务需求写个类：<code>CustomModal</code></p>
+<p>画个脑图的话，会是下面图片中的样子：</p>
+<p><img src="http://oxk008h6r.bkt.clouddn.com/WX20180626-132952@2x.png" alt="不同类之间的关系图"></p>
+<h2 id="extends简单实现下"><a href="#extends简单实现下" class="headerlink" title="extends简单实现下"></a>extends简单实现下</h2><h3 id="看代码"><a href="#看代码" class="headerlink" title="看代码"></a>看代码</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 公共方法</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BaseModal</span> </span>&#123;</span><br><span class="line">  close()&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'close'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 可以拖动的弹层，我们写一个单独的类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DragModal</span> <span class="keyword">extends</span> <span class="title">BaseModal</span> </span>&#123;</span><br><span class="line">  hasLayer = <span class="literal">true</span>;</span><br><span class="line">  drag() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'drag'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 可以缩放的弹层，我们写一个单独的类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ScaleModal</span> <span class="keyword">extends</span> <span class="title">BaseModal</span> </span>&#123;</span><br><span class="line">  scale() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'scale'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 业务方法</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CustomModal</span> <span class="keyword">extends</span> <span class="title">DragModal</span> </span>&#123;</span><br><span class="line">  close()&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'custom-close'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">do</span>() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'do'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> c = <span class="keyword">new</span> CustomModal();</span><br><span class="line">c.close(); <span class="comment">// custom-close</span></span><br><span class="line">c.drag(); <span class="comment">// drag</span></span><br><span class="line">c.do(); <span class="comment">// do</span></span><br><span class="line">c.hasLayer; <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<h3 id="抛出问题"><a href="#抛出问题" class="headerlink" title="抛出问题"></a>抛出问题</h3><ul>
+<li>如何使<code>CustomModal</code>能够同时继承<code>DragModal</code>和<code>ScaleModal</code>？</li>
+<li>某个相同方法希望不覆盖，而是都执行</li>
+</ul>
+<h2 id="试试早期的mixin方法实现多继承"><a href="#试试早期的mixin方法实现多继承" class="headerlink" title="试试早期的mixin方法实现多继承"></a>试试早期的mixin方法实现多继承</h2><h3 id="看代码-1"><a href="#看代码-1" class="headerlink" title="看代码"></a>看代码</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 可以拖动的弹层，我们写一个单独的类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DragModal</span> <span class="keyword">extends</span> <span class="title">BaseModal</span> </span>&#123;</span><br><span class="line">  hasLayer = <span class="literal">true</span>;</span><br><span class="line">  drag() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'drag'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 可以缩放的弹层，我们写一个单独的类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ScaleModal</span> <span class="keyword">extends</span> <span class="title">BaseModal</span> </span>&#123;</span><br><span class="line">  scale() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'scale'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取原型对象的所有属性和方法</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getPrototypes</span>(<span class="params">ClassPrototype</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Object</span>.getOwnPropertyNames(ClassPrototype).slice(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mix</span>(<span class="params">...mixins</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">target</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!mixins || !<span class="built_in">Array</span>.isArray(mixins)) <span class="keyword">return</span> target;</span><br><span class="line">    <span class="keyword">let</span> cp = target.prototype;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> C <span class="keyword">of</span> mixins) &#123;</span><br><span class="line">      <span class="keyword">let</span> mp = C.prototype;</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">let</span> m <span class="keyword">of</span> getPrototypes(mp)) &#123;</span><br><span class="line">        cp[m] = mp[m];</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">@mix(DragModal, ScaleModal)</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CustomModal</span> </span>&#123;</span><br><span class="line">  scale()&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'custom-scale'</span>);</span><br><span class="line">  &#125; </span><br><span class="line">  <span class="keyword">do</span>() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'do'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> c = <span class="keyword">new</span> CustomModal();</span><br><span class="line">c.close(); <span class="comment">// 报错，因为dobase没在A或B的prototype上，而是在A.prototype.__proto__上</span></span><br><span class="line">c.drag(); <span class="comment">// drag</span></span><br><span class="line">c.scale(); <span class="comment">// scale  并非是我们想要的custom-scale</span></span><br><span class="line"><span class="built_in">console</span>.log(c.hasLayer); <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
+<h3 id="存在的问题"><a href="#存在的问题" class="headerlink" title="存在的问题"></a>存在的问题</h3><p>以上<code>mix</code>方式实现了多继承，但存在以下问题</p>
+<ul>
+<li>会修改<code>target</code>类的原型对象</li>
+<li><code>target</code>类的相同方法名会被被继承类的相同方法名覆盖</li>
+<li>实例属性无法继承</li>
+<li><code>BaseModal</code>类无法被继承</li>
+</ul>
+<h2 id="只继承不修改prototype的实现方式"><a href="#只继承不修改prototype的实现方式" class="headerlink" title="只继承不修改prototype的实现方式"></a>只继承不修改prototype的实现方式</h2><h3 id="看代码-2"><a href="#看代码-2" class="headerlink" title="看代码"></a>看代码</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BaseModal</span> </span>&#123;</span><br><span class="line">  close() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'close'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> DragModalMixin = <span class="function">(<span class="params">extendsClass</span>) =&gt;</span> <span class="class"><span class="keyword">class</span> <span class="keyword">extends</span> <span class="title">extendsClass</span> </span>&#123;</span><br><span class="line">  hasLayer = <span class="literal">true</span>;</span><br><span class="line">  drag() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'drag'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CustomModal</span> <span class="keyword">extends</span> <span class="title">DragModalMixin</span>(<span class="title">BaseModal</span>) </span>&#123;</span><br><span class="line">  drag() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'custom-drag'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">do</span>() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'do'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> c = <span class="keyword">new</span> CustomModal();</span><br><span class="line"></span><br><span class="line">c.close(); <span class="comment">// close</span></span><br><span class="line">c.drag(); <span class="comment">// custom-drag</span></span><br><span class="line"><span class="built_in">console</span>.log(c.hasLayer); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<h3 id="存在的问题-1"><a href="#存在的问题-1" class="headerlink" title="存在的问题"></a>存在的问题</h3><p>如何让<code>CustomModal</code>再继承<code>ScaleModal</code>呢？<br>其实很简单，在上面基础上，我们再写一个<code>ScaleModalMixinMixin</code>类就可以了</p>
+<h2 id="完美的多继承"><a href="#完美的多继承" class="headerlink" title="完美的多继承"></a>完美的多继承</h2><h3 id="看代码-3"><a href="#看代码-3" class="headerlink" title="看代码"></a>看代码</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BaseModal</span> </span>&#123;</span><br><span class="line">  close() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'close'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> DragModalMixin = <span class="function">(<span class="params">extendsClass</span>) =&gt;</span> <span class="class"><span class="keyword">class</span> <span class="keyword">extends</span> <span class="title">extendsClass</span> </span>&#123;</span><br><span class="line">  hasLayer = <span class="literal">true</span>;</span><br><span class="line">  drag() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'drag'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> ScaleModalMixin = <span class="function">(<span class="params">extendsClass</span>) =&gt;</span> <span class="class"><span class="keyword">class</span> <span class="keyword">extends</span> <span class="title">extendsClass</span> </span>&#123;</span><br><span class="line">  scale() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'scale'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CustomModal</span> <span class="keyword">extends</span> <span class="title">ScaleModalMixin</span>(<span class="title">DragModalMixin</span>(<span class="title">BaseModal</span>)) </span>&#123;</span><br><span class="line">  drag() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'custom-drag'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">do</span>() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'do'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> c = <span class="keyword">new</span> CustomModal();</span><br><span class="line"></span><br><span class="line">c.close(); <span class="comment">// close</span></span><br><span class="line">c.drag(); <span class="comment">// custom-drag</span></span><br><span class="line">c.scale(); <span class="comment">// scale</span></span><br><span class="line"><span class="built_in">console</span>.log(c.hasLayer); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<h3 id="存在的问题-2"><a href="#存在的问题-2" class="headerlink" title="存在的问题"></a>存在的问题</h3><p>这种方式不会修改父类的原型对象，但是如果存在跟父类同名的方法，只会执行父类的，而不回执行被继承的类的方法，那么如何使相同方法分别执行呢？</p>
+<h2 id="super实现相同方法不覆盖"><a href="#super实现相同方法不覆盖" class="headerlink" title="super实现相同方法不覆盖"></a>super实现相同方法不覆盖</h2><h3 id="看代码-4"><a href="#看代码-4" class="headerlink" title="看代码"></a>看代码</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BaseModal</span> </span>&#123;</span><br><span class="line">  close() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'close'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> DragModalMixin = <span class="function">(<span class="params">extendsClass</span>) =&gt;</span> <span class="class"><span class="keyword">class</span> <span class="keyword">extends</span> <span class="title">extendsClass</span> </span>&#123;</span><br><span class="line">  hasLayer = <span class="literal">true</span>;</span><br><span class="line">  drag() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'drag'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">let</span> ScaleModalMixin = <span class="function">(<span class="params">extendsClass</span>) =&gt;</span> <span class="class"><span class="keyword">class</span> <span class="keyword">extends</span> <span class="title">extendsClass</span> </span>&#123;</span><br><span class="line">  scale() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'scale'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  close() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'scale-close'</span>);</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">super</span>.close) <span class="keyword">super</span>.close();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CustomModal</span> <span class="keyword">extends</span> <span class="title">ScaleModalMixin</span>(<span class="title">DragModalMixin</span>(<span class="title">BaseModal</span>)) </span>&#123;</span><br><span class="line">  close() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'custom-close'</span>);</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">super</span>.close) <span class="keyword">super</span>.close();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">do</span>() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'do'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> c = <span class="keyword">new</span> CustomModal();</span><br><span class="line"></span><br><span class="line">c.close(); <span class="comment">// custom-close   -&gt;   scale-close   -&gt;   close</span></span><br></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Mixin是一种思想，用来实现代码高度可复用性，又可以用来解决多继承的问题，是一种非常灵活的设计模式，如果你多多琢磨，相信你也会发现一些其他的妙用的，看好你哟！</p>
+
+            
+            <!-- Pager -->
+            <ul class="pager">
+                
+                
+                <li class="next">
+                    <a href="/2018/05/06/axios-tutorial/" >Axios源码深度剖析 - XHR篇 &rarr;</a>
+                </li>
+                
+            </ul>
+
+
+
+        </div>
+        <!-- Sidebar container-->
+        <div class="
+    col-lg-3 col-lg-offset-0
+    col-md-3 col-md-offset-0
+    col-sm-12
+    col-xs-12
+    sidebar-container
+">
+            <!-- toc -->
+            <div class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top" role="complementary">
+                <h4>目录</h4>
+                <ul class="nav bs-docs-sidenav">
+
+                </ul>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/ronffy">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; 小贼先生 2018
+                    <br>
+                    Theme by <a href="https://ronffy.github.io">Ronffy</a>
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="https://cdn.staticfile.org/jquery/2.2.4/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/script.js"></script>
+
+
+
+
+</body>
+</html>
