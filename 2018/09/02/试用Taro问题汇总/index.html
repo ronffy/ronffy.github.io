@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+
+<!-- Head -->
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/img/mylogo.png">
+
+    
+
+    <title>
+        
+        试用Taro问题汇总 |
+        
+        小贼先生
+    </title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- Custom Fonts -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Plugin CSS -->
+
+
+    <!-- Custom CSS -->
+    <!-- ↓这是stylus文件 -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/toc.css">
+
+
+</head>
+<body></body>
+
+
+<body>
+
+<!-- Header -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header {
+        background-color: #000;
+            /*post*/
+            
+    }
+
+    .navbar-custom .navbar-brand {
+        color: #fff;
+            /*post*/
+            
+    }
+
+    .navbar-custom .navbar-subtitle {
+        display: none;
+            
+    }
+
+    @media only screen and (min-width: 768px) {
+        .navbar-custom .nav li a {
+            color: #fff;
+                
+        }
+    }
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <!-- 文章 -->
+                
+                    <div class="post-heading">
+                        <h1>
+                            试用Taro问题汇总
+                        </h1>
+                        <h2 class="subheading">
+                            一套遵循 React 语法规范的多端统一开发框架
+                        </h2>
+                    </div>
+                    <!-- 非文章 -->
+                    
+
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Nav -->
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">小贼先生</a>
+            <span class="navbar-subtitle">
+                我的code，一块砖一块砖垒成未来的样子
+            </span>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    
+                    <li><a href="/">首页</a></li>
+                    
+                    <li><a href="/archives">所有文章</a></li>
+                    
+                    <li><a href="/about">关于我</a></li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+<!-- Content -->
+<!-- Content -->
+<div class="container" data-type="post">
+    <div class="row">
+        <!-- Post container -->
+
+        <div class="
+                col-lg-8 col-lg-offset-1
+                col-md-8 col-md-offset-1
+                col-sm-12
+                col-xs-12
+                post-container
+            " style="padding-top: 15px;">
+
+            <blockquote>
+<p><a href="https://github.com/NervJS/taro" target="_blank" rel="noopener">Taro</a> 是由京东 - 凹凸实验室打造的一套遵循 React 语法规范的多端统一开发框架。</p>
+</blockquote>
+<p>我试用了有15天左右，总的来说，这是一款优秀的框架，尤其补充了目前市面上无法用 React 开发小程序的需求空缺，所以其优点就不多说了，大家可去其官方查看<a href="https://taro.aotu.io/" target="_blank" rel="noopener">详细文档</a></p>
+<p>下面说下我的试用感受，希望帮助后面使用Taro的同学少踩一些坑；因为能力有限，可能了解和认识会有一些不到位的地方，还望各路大佬不吝留言赐教</p>
+<h3 id="存在的问题"><a href="#存在的问题" class="headerlink" title="存在的问题"></a>存在的问题</h3><p>以下，是我在使用Taro过程中遇到的影响开发流程或体验的地方：</p>
+<ul>
+<li><p>1.不支持source map，调试可通过debugger</p>
+</li>
+<li><p>2.不支持alias，所以项目里会有大片大片的 <code>../../../</code>，不利于后期维护</p>
+</li>
+<li><p>3.全局请求的需求，官方未有最佳方案。理应<code>app.tsx</code>是最合适的地方，但是该组件的<code>Provider</code>组件内写的任何组件都会被Taro替换掉。我目前是通过在<code>app.tsx</code>里通过<code>store.dispatch(action)</code>发送全局异步请求</p>
+</li>
+<li><p>4.redux/connect方法的<code>mapStateToProps</code>缺少第二个参数<code>ownProps</code></p>
+</li>
+<li><p>5.组件嵌套时，taro生命周期与react生命周期执行顺序有差异，如图是Taro的生命周期执行顺序，可以看到<code>componentDidMount</code>跟React是相反的。<img src="https://user-gold-cdn.xitu.io/2018/9/3/1659d69bf94b31d4?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="图片描述"></p>
+</li>
+<li><p>6.不可以使用 … 拓展操作符给组件传递属性，<code>&lt;Comp {...props} /&gt;</code>写法错误</p>
+</li>
+<li><p>7.属性不能传入 JSX 元素，<code>&lt;Content footer={&lt;View /&gt;} /&gt;</code>写法错误</p>
+</li>
+</ul>
+<h3 id="展望"><a href="#展望" class="headerlink" title="展望"></a>展望</h3><p>虽然存在以上种种问题，还是要感谢京东前端团队能够开源一款React语法的多端开发框架，让我们React粉儿能够用React开发小程序；以上有些问题我已提了PR，如Q4，并且维护人员很快将PR进行了merge，凹凸团队对这个项目的重视程度和责任心可见一斑，所以我相信，凹凸团队一定可以把Taro不断完善的，加油！</p>
+
+            
+            <!-- Pager -->
+            <ul class="pager">
+                
+                
+                <li class="next">
+                    <a href="/2018/06/26/mixin-class/" >Mixin配合class实现多继承的绝佳妙用 &rarr;</a>
+                </li>
+                
+            </ul>
+
+
+
+        </div>
+        <!-- Sidebar container-->
+        <div class="
+    col-lg-3 col-lg-offset-0
+    col-md-3 col-md-offset-0
+    col-sm-12
+    col-xs-12
+    sidebar-container
+">
+            <!-- toc -->
+            <div class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top" role="complementary">
+                <h4>目录</h4>
+                <ul class="nav bs-docs-sidenav">
+
+                </ul>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/ronffy">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; 小贼先生 2018
+                    <br>
+                    Theme by <a href="https://ronffy.github.io">Ronffy</a>
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="https://cdn.staticfile.org/jquery/2.2.4/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/script.js"></script>
+
+
+
+
+</body>
+</html>
