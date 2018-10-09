@@ -115,7 +115,8 @@ a:focus, a.active {
     font-size: 17px;
     line-height: 1.4;
     font-weight: normal;
-    margin: 10px 0 30px;
+    // margin: 10px 0 30px;
+    margin: 0;
     margin-top: -5px;
 }
 
@@ -139,6 +140,17 @@ a:focus, a.active {
     .intro-header .post-heading .meta {
         font-size: 20px;
     }
+}
+
+.subauthor {
+    text-align: right;
+}
+.subauthor a {
+    font-size: 18px;
+    color: #fff;
+}
+.subauthor a:hover {
+    color: rgb(230, 97, 140);
 }
 
 /*-----------------------------nav-----------------------------------*/
