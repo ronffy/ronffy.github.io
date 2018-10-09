@@ -26,7 +26,8 @@
     margin-right: 10px;
 }
 
-.post-author h5 {
+.post-preview .post-author h5,
+.post-preview .post-author h5 >a {
     color: rgb(230, 97, 140);
 }
 
