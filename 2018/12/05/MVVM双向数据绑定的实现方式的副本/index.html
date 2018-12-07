@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="en">
+
+<!-- Head -->
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/img/mylogo.png">
+
+    
+
+    <title>
+        
+        Immer 实战讲解 |
+        
+        小贼先生
+    </title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- Custom Fonts -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Plugin CSS -->
+
+
+    <!-- Custom CSS -->
+    <!-- ↓这是stylus文件 -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/toc.css">
+
+
+</head>
+<body></body>
+
+
+<body>
+
+<!-- Header -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header {
+        background-color: #000;
+            /*post*/
+            
+    }
+
+    .navbar-custom .navbar-brand {
+        color: #fff;
+            /*post*/
+            
+    }
+
+    .navbar-custom .navbar-subtitle {
+        display: none;
+            
+    }
+
+    @media only screen and (min-width: 768px) {
+        .navbar-custom .nav li a {
+            color: #fff;
+                
+        }
+    }
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <!-- 文章 -->
+                
+                    <div class="post-heading">
+                        <h1>
+                            Immer 实战讲解
+                        </h1>
+                        <h2 class="subheading">
+                            
+                        </h2>
+                        <p class="subauthor">
+                            Posted by 
+                            <a href="https://github.com/ronffy">
+                                ronffy
+                            </a> on 2018-12-05
+                        </p>
+                    </div>
+                    <!-- 非文章 -->
+                    
+
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Nav -->
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">小贼先生</a>
+            <span class="navbar-subtitle">
+                我的code，一块砖一块砖垒成未来的样子
+            </span>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    
+                    <li><a href="/">首页</a></li>
+                    
+                    <li><a href="/archives">所有文章</a></li>
+                    
+                    <li><a href="/about">关于我</a></li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+<!-- Content -->
+<!-- Content -->
+<div class="container" data-type="post">
+    <div class="row">
+        <!-- Post container -->
+        <div class="
+                col-lg-8 col-lg-offset-1
+                col-md-8 col-md-offset-1
+                col-sm-12
+                col-xs-12
+                post-container
+            " style="padding-top: 15px;">
+
+            <blockquote>
+<p>文章在 <a href="https://github.com/ronffy/immer-tutorial" target="_blank" rel="noopener">github</a> 开源， 欢迎 Fork 、Star !</p>
+</blockquote>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><a href="https://github.com/mweststrate/immer" target="_blank" rel="noopener">Immer</a> 是 mobx 的作者写的一个 immutable 库，核心实现是利用 ES6 的 proxy，几乎以最小的成本实现了 js 的不可变数据结构，简单易用、体量小巧、设计巧妙，满足了我们对JS不可变数据结构的需求。<br>无奈网络上完善的文档实在太少，所以自己写了一份，本篇文章以贴近实战的思路和流程，对 Immer 进行了全面的讲解。</p>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
+<li><a href="#数据处理存在的问题">数据处理存在的问题</a></li>
+<li><a href="#解决引用类型对象被修改的办法">解决引用类型对象被修改的办法</a></li>
+<li><a href="#immer功能介绍">immer功能介绍</a><ul>
+<li><a href="#安装immer">安装immer</a></li>
+<li><a href="#immer如何fix掉那些不爽的问题">immer如何fix掉那些不爽的问题</a></li>
+<li><a href="#概念说明">概念说明</a></li>
+<li><a href="#常用api介绍">常用api介绍</a></li>
+</ul>
+</li>
+<li><a href="#用immer优化react项目的探索">用immer优化react项目的探索</a><ul>
+<li><a href="#抛出需求">抛出需求</a></li>
+<li><a href="#优化setState方法">优化setState方法</a></li>
+<li><a href="#优化reducer">优化reducer</a></li>
+</ul>
+</li>
+<li><a href="#参考文档">参考文档</a></li>
+</ul>
+<h2 id="数据处理存在的问题"><a href="#数据处理存在的问题" class="headerlink" title="数据处理存在的问题"></a>数据处理存在的问题</h2><p>先定义一个初始对象，供后面例子使用：<br>首先定义一个<code>currentState</code>对象，后面的例子使用到变量<code>currentState</code>时，如无特殊声明，都是指这个<code>currentState</code>对象<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> currentState = &#123;</span><br><span class="line">  p: &#123;</span><br><span class="line">    x: [<span class="number">2</span>],</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>哪些情况会一不小心修改原始对象？</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Q1</span></span><br><span class="line"><span class="keyword">let</span> o1 = currentState;</span><br><span class="line">o1.p = <span class="number">1</span>; <span class="comment">// currentState 被修改了</span></span><br><span class="line">o1.p.x = <span class="number">1</span>; <span class="comment">// currentState 被修改了</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Q2</span></span><br><span class="line">fn(currentState); <span class="comment">// currentState 被修改了</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">o</span>) </span>&#123;</span><br><span class="line">  o.p1 = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">return</span> o;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Q3</span></span><br><span class="line"><span class="keyword">let</span> o3 = &#123;</span><br><span class="line">  ...currentState</span><br><span class="line">&#125;;</span><br><span class="line">o3.p.x = <span class="number">1</span>; <span class="comment">// currentState 被修改了</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Q4</span></span><br><span class="line"><span class="keyword">let</span> o4 = currentState;</span><br><span class="line">o4.p.x.push(<span class="number">1</span>); <span class="comment">// currentState 被修改了</span></span><br></pre></td></tr></table></figure>
+<h2 id="解决引用类型对象被修改的办法"><a href="#解决引用类型对象被修改的办法" class="headerlink" title="解决引用类型对象被修改的办法"></a>解决引用类型对象被修改的办法</h2><ol>
+<li>深度拷贝，但是深拷贝的成本较高，会影响性能；</li>
+<li><a href="https://github.com/facebook/immutable-js" target="_blank" rel="noopener">ImmutableJS</a>，非常棒的一个不可变数据结构的库，可以解决上面的问题，But，跟 Immer 比起来，ImmutableJS 有两个较大的不足：  <ul>
+<li>需要使用者学习它的数据结构操作方式，没有 Immer 提供的使用原生对象的操作方式简单、易用；</li>
+<li>它的操作结果需要通过<code>toJS</code>方法才能得到原生对象，这使得在操作一个对象的时候，时刻要主要操作的是原生对象还是 ImmutableJS 的返回结果，稍不注意，就会产生意想不到的 bug。</li>
+</ul>
+</li>
+</ol>
+<p>看来目前已知的解决方案，我们都不甚满意，那么 Immer 又有什么高明之处呢？</p>
+<h2 id="immer功能介绍"><a href="#immer功能介绍" class="headerlink" title="immer功能介绍"></a>immer功能介绍</h2><h3 id="安装immer"><a href="#安装immer" class="headerlink" title="安装immer"></a>安装immer</h3><p>欲善其事必先利其器，安装 Immer 是当前第一要务</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i --save immer</span><br></pre></td></tr></table></figure>
+<h3 id="immer如何fix掉那些不爽的问题"><a href="#immer如何fix掉那些不爽的问题" class="headerlink" title="immer如何fix掉那些不爽的问题"></a>immer如何fix掉那些不爽的问题</h3><p>Fix Q1、Q3<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> produce <span class="keyword">from</span> <span class="string">'immer'</span>;</span><br><span class="line"><span class="keyword">let</span> o1 = produce(currentState, draft =&gt; &#123;</span><br><span class="line">  draft.p.x = <span class="number">1</span>;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>Fix Q2<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> produce <span class="keyword">from</span> <span class="string">'immer'</span>;</span><br><span class="line">fn(currentState); <span class="comment">// currentState 被修改了</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">o</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> produce(o, draft =&gt; &#123;</span><br><span class="line">    draft.p1 = <span class="number">1</span>;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>Fix Q4<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> produce <span class="keyword">from</span> <span class="string">'immer'</span>;</span><br><span class="line"><span class="keyword">let</span> o4 = produce(currentState, draft =&gt; &#123;</span><br><span class="line">  draft.p.x.push(<span class="number">1</span>);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>是不是使用非常简单，通过小试牛刀，我们简单的了解了 Immer ，下面将对 Immer 的常用 api 分别进行介绍。</p>
+<h3 id="概念说明"><a href="#概念说明" class="headerlink" title="概念说明"></a>概念说明</h3><p>Immer 涉及概念不多，在此将涉及到的概念先行罗列出来，阅读本文章过程中遇到不明白的概念，可以随时来此处查阅。</p>
+<ul>
+<li><p>currentState<br>被操作对象的最初状态</p>
+</li>
+<li><p>draftState<br>根据 currentState 生成的草稿状态，它是 currentState 的代理，对 draftState 所做的任何修改都将被记录并用于生成 nextState 。在此过程中，currentState 将不受影响</p>
+</li>
+<li><p>nextState<br>根据 draftState 生成的最终状态</p>
+</li>
+<li><p>produce 生产<br>用来生成 nextState 或 producer 的函数</p>
+</li>
+<li><p>producer 生产者<br>通过 produce 生成，用来生产 nextState ，每次执行相同的操作</p>
+</li>
+<li><p>recipe 生产机器<br>用来操作 draftState 的函数</p>
+</li>
+</ul>
+<h3 id="常用api介绍"><a href="#常用api介绍" class="headerlink" title="常用api介绍"></a>常用api介绍</h3><p>使用 Immer 前，请确认将<code>immer</code>包引入到模块中</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> produce <span class="keyword">from</span> <span class="string">'immer'</span></span><br></pre></td></tr></table></figure>
+<p>or<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; produce &#125; <span class="keyword">from</span> <span class="string">'immer'</span></span><br></pre></td></tr></table></figure></p>
+<p>这两种引用方式，produce 是完全相同的</p>
+<h4 id="produce"><a href="#produce" class="headerlink" title="produce"></a>produce</h4><p><em>备注：出现<code>PatchListener</code>先行跳过，后面章节会做介绍</em></p>
+<h5 id="第1种使用方式："><a href="#第1种使用方式：" class="headerlink" title="第1种使用方式："></a>第1种使用方式：</h5><p>语法：<br><code>produce(currentState, recipe: (draftState) =&gt; void | draftState, ?PatchListener): nextState</code></p>
+<p>例子1：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> nextState = produce(currentState, (draft) =&gt; &#123;</span><br><span class="line"></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">currentState === nextState; <span class="comment">// true</span></span><br></pre></td></tr></table></figure></p>
+<p>例子2：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> currentState = &#123;</span><br><span class="line">  a: [],</span><br><span class="line">  p: &#123;</span><br><span class="line">    x: <span class="number">1</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> nextState = produce(currentState, (draft) =&gt; &#123;</span><br><span class="line">  draft.a.push(<span class="number">2</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">currentState.a === nextState.a; <span class="comment">// false</span></span><br><span class="line">currentState.p === nextState.p; <span class="comment">// true</span></span><br></pre></td></tr></table></figure></p>
+<p>由此可见，对 draftState 的修改都会反应到 nextState 上，而 Immer 使用的结构是共享的，nextState 在结构上又与 currentState 共享未修改的部分，共享效果如图(借用的一篇 Immutable 文章中的动图，侵删)：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/12/5/1677dc8dba33def4?imageslim" alt=""></p>
+<h5 id="自动冻结功能"><a href="#自动冻结功能" class="headerlink" title="自动冻结功能"></a>自动冻结功能</h5><p>Immer 还在内部做了一件很巧妙的事情，那就是通过 produce 生成的 nextState 是被冻结（freeze）的，（Immer 内部使用<code>Object.freeze</code>方法，只冻结 nextState 跟 currentState 相比修改的部分），这样，当直接修改 nextState 时，将会报错。<br>这使得 nextState 成为了真正的不可变数据。</p>
+<p>例子：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> nextState = produce(currentState, (draft) =&gt; &#123;</span><br><span class="line">  draft.p.x.push(<span class="number">2</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">currentState === nextState; <span class="comment">// true</span></span><br></pre></td></tr></table></figure></p>
+<h5 id="第2种使用方式"><a href="#第2种使用方式" class="headerlink" title="第2种使用方式"></a>第2种使用方式</h5><p>利用高阶函数的特点，提前生成一个生产者 producer</p>
+<p>语法：<br><code>produce(recipe: (draftState) =&gt; void | draftState, ?PatchListener)(currentState): nextState</code></p>
+<p>例子：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> producer = produce(<span class="function">(<span class="params">draft</span>) =&gt;</span> &#123;</span><br><span class="line">  draft.x = <span class="number">2</span></span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">let</span> nextState = producer(currentState);</span><br></pre></td></tr></table></figure></p>
+<h5 id="recipe的返回值"><a href="#recipe的返回值" class="headerlink" title="recipe的返回值"></a>recipe的返回值</h5><p>recipe 是否有返回值，nextState 的生成过程是不同的：<br>recipe 没有返回值时：nextState 是根据 recipe 函数内的 draftState 生成的；<br>recipe 有返回值时：nextState 是根据 recipe 函数的返回值生成的；  </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> nextState = produce(</span><br><span class="line">  currentState, </span><br><span class="line">  (draftState) =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      x: <span class="number">2</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>此时，nextState 不再是通过 draftState 生成的了，而是通过 recipe 的返回值生成的。</p>
+<h5 id="recipe中的this"><a href="#recipe中的this" class="headerlink" title="recipe中的this"></a>recipe中的this</h5><p> recipe 函数内部的<code>this</code>指向 draftState ，也就是修改<code>this</code>与修改 recipe 的参数 draftState ，效果是一样的。<br><strong>注意：此处的 recipe 函数不能是箭头函数，如果是箭头函数，<code>this</code>就无法指向 draftState 了</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">produce(currentState, <span class="function"><span class="keyword">function</span>(<span class="params">draft</span>)</span>&#123;</span><br><span class="line">  <span class="comment">// 此处，this 指向 draftState</span></span><br><span class="line">  draft === <span class="keyword">this</span>; <span class="comment">// true</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="patch补丁功能"><a href="#patch补丁功能" class="headerlink" title="patch补丁功能"></a>patch补丁功能</h4><p>通过此功能，可以方便进行详细的代码调试和跟踪，可以知道 recipe 内的做的每次修改，还可以实现时间旅行。</p>
+<p>Immer 中，一个 patch 对象是这样的:<br><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> Patch &#123;</span><br><span class="line">  op: <span class="string">"replace"</span> | <span class="string">"remove"</span> | <span class="string">"add"</span> <span class="comment">// 一次更改的动作类型</span></span><br><span class="line">  path: (<span class="built_in">string</span> | <span class="built_in">number</span>)[] <span class="comment">// 此属性指从树根到被更改树杈的路径</span></span><br><span class="line">  value?: <span class="built_in">any</span> <span class="comment">// op为 replace、add 时，才有此属性，表示新的赋值</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>语法：<br><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">produce(</span><br><span class="line">  currentState, </span><br><span class="line">  recipe,</span><br><span class="line">  <span class="comment">// 通过 patchListener 函数，暴露正向和反向的补丁数组</span></span><br><span class="line">  patchListener: <span class="function">(<span class="params">patches: Patch[], inversePatches: Patch[]</span>) =&gt;</span> <span class="built_in">void</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">applyPatches(currentState, changes: (patches | inversePatches)[]): nextState</span><br></pre></td></tr></table></figure></p>
+<p>例子：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> produce, &#123; applyPatches &#125; <span class="keyword">from</span> <span class="string">"immer"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> state = &#123;</span><br><span class="line">  x: <span class="number">1</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> replaces = [];</span><br><span class="line"><span class="keyword">let</span> inverseReplaces = [];</span><br><span class="line"></span><br><span class="line">state = produce(</span><br><span class="line">  state,</span><br><span class="line">  draft =&gt; &#123;</span><br><span class="line">    draft.x = <span class="number">2</span>;</span><br><span class="line">    draft.y = <span class="number">2</span>;</span><br><span class="line">  &#125;,</span><br><span class="line">  (patches, inversePatches) =&gt; &#123;</span><br><span class="line">    replaces = patches.filter(<span class="function"><span class="params">patch</span> =&gt;</span> patch.op === <span class="string">'replace'</span>);</span><br><span class="line">    inverseReplaces = inversePatches.filter(<span class="function"><span class="params">patch</span> =&gt;</span> patch.op === <span class="string">'replace'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">state = produce(state, draft =&gt; &#123;</span><br><span class="line">  draft.x = <span class="number">3</span>;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'state1'</span>, state); <span class="comment">// &#123; x: 3, y: 2 &#125;</span></span><br><span class="line"></span><br><span class="line">state = applyPatches(state, replaces);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'state2'</span>, state); <span class="comment">// &#123; x: 2, y: 2 &#125;</span></span><br><span class="line"></span><br><span class="line">state = produce(state, draft =&gt; &#123;</span><br><span class="line">  draft.x = <span class="number">4</span>;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'state3'</span>, state); <span class="comment">// &#123; x: 4, y: 2 &#125;</span></span><br><span class="line"></span><br><span class="line">state = applyPatches(state, inverseReplaces);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'state4'</span>, state); <span class="comment">// &#123; x: 1, y: 2 &#125;</span></span><br></pre></td></tr></table></figure>
+<p><code>state.x</code>的值4次打印结果分别是：<code>3、2、4、1</code>，实现了时间旅行，<br>可以分别打印<code>patches</code>和<code>inversePatches</code>看下，</p>
+<p><code>patches</code>数据如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">  &#123;</span><br><span class="line">    op: <span class="string">"replace"</span>,</span><br><span class="line">    path: [<span class="string">"x"</span>],</span><br><span class="line">    value: <span class="number">2</span></span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    op: <span class="string">"add"</span>,</span><br><span class="line">    path: [<span class="string">"y"</span>],</span><br><span class="line">    value: <span class="number">2</span></span><br><span class="line">  &#125;,</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
+<p><code>inversePatches</code>数据如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">  &#123;</span><br><span class="line">    op: <span class="string">"replace"</span>,</span><br><span class="line">    path: [<span class="string">"x"</span>],</span><br><span class="line">    value: <span class="number">1</span></span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    op: <span class="string">"remove"</span>,</span><br><span class="line">    path: [<span class="string">"y"</span>],</span><br><span class="line">  &#125;,</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
+<p>可见，<code>patchListener</code>内部对数据操作做了记录，并分别存储为正向操作记录和反向操作记录，供我们使用。</p>
+<p>至此，Immer 的常用功能和 api 我们就介绍完了。</p>
+<p>接下来，我们看如何用 Immer ，提高 React 、Redux 项目的开发效率。</p>
+<h2 id="用immer优化react项目的探索"><a href="#用immer优化react项目的探索" class="headerlink" title="用immer优化react项目的探索"></a>用immer优化react项目的探索</h2><p>首先定义一个<code>state</code>对象，后面的例子使用到变量<code>state</code>或访问<code>this.state</code>时，如无特殊声明，都是指这个<code>state</code>对象<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">state = &#123;</span><br><span class="line">  members: [</span><br><span class="line">    &#123;</span><br><span class="line">      name: <span class="string">'ronffy'</span>,</span><br><span class="line">      age: <span class="number">30</span></span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="抛出需求"><a href="#抛出需求" class="headerlink" title="抛出需求"></a>抛出需求</h3><p>就上面定义的<code>state</code>，我们先抛一个需求出来，好让后面的讲解有的放矢：<br><strong>members 成员中的第1个成员，年龄增加1岁</strong></p>
+<h3 id="优化setState方法"><a href="#优化setState方法" class="headerlink" title="优化setState方法"></a>优化setState方法</h3><h4 id="错误示例"><a href="#错误示例" class="headerlink" title="错误示例"></a>错误示例</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.state.members[<span class="number">0</span>].age++;</span><br></pre></td></tr></table></figure>
+<p>只所以有的新手同学会犯这样的错误，很大原因是这样操作实在是太方便了，以至于忘记了操作 State 的规则。</p>
+<p>下面看下正确的实现方法</p>
+<h4 id="setState的第1种实现方法"><a href="#setState的第1种实现方法" class="headerlink" title="setState的第1种实现方法"></a>setState的第1种实现方法</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; members &#125; = <span class="keyword">this</span>.state;</span><br><span class="line"><span class="keyword">this</span>.setState(&#123;</span><br><span class="line">  members: [</span><br><span class="line">    &#123;</span><br><span class="line">      ...members[<span class="number">0</span>],</span><br><span class="line">      age: members[<span class="number">0</span>].age + <span class="number">1</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    ...members.slice(<span class="number">1</span>),</span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="setState的第2种实现方法"><a href="#setState的第2种实现方法" class="headerlink" title="setState的第2种实现方法"></a>setState的第2种实现方法</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.setState(<span class="function"><span class="params">state</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; members &#125; = state;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    members: [</span><br><span class="line">      &#123;</span><br><span class="line">        ...members[<span class="number">0</span>],</span><br><span class="line">        age: members[<span class="number">0</span>].age + <span class="number">1</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">      ...members.slice(<span class="number">1</span>)</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>以上2种实现方式，就是<code>setState</code>的两种使用方法，相比大家都不陌生了，所以就不过多说明了，接下来看下，如果用 Immer 解决，会有怎样的烟火？</p>
+<h4 id="用immer更新state"><a href="#用immer更新state" class="headerlink" title="用immer更新state"></a>用immer更新state</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.setState(produce(<span class="function"><span class="params">draft</span> =&gt;</span> &#123;</span><br><span class="line">  draft.members[<span class="number">0</span>].age++;</span><br><span class="line">&#125;))</span><br></pre></td></tr></table></figure>
+<p>是不是瞬间代码量就少了很多，阅读起来舒服了很多，而且更易于阅读了。</p>
+<h3 id="优化reducer"><a href="#优化reducer" class="headerlink" title="优化reducer"></a>优化reducer</h3><h4 id="immer的produce的拓展用法"><a href="#immer的produce的拓展用法" class="headerlink" title="immer的produce的拓展用法"></a>immer的produce的拓展用法</h4><p>在开始正式探索之前，我们先来看下 produce <a href="#第2种使用方式">第2种使用方式</a>的拓展用法:</p>
+<p>例子：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> producer = produce(<span class="function">(<span class="params">draft, arg</span>) =&gt;</span> &#123;</span><br><span class="line">  obj === arg; <span class="comment">// true</span></span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">let</span> nextState = producer(currentState, obj);</span><br></pre></td></tr></table></figure></p>
+<p>相比 produce 第2种使用方式的例子，多定义了一个<code>obj</code>对象，并将其作为 producer 方法的第2个参数传了进去；可以看到， produce 内的 recipe 回调函数的第2个参数与<code>obj</code>对象是指向同一块内存。<br>ok，我们在知道了 produce 的这种拓展用法后，看看能够在 Redux 中发挥什么功效?</p>
+<h4 id="普通reducer怎样解决上面抛出的需求"><a href="#普通reducer怎样解决上面抛出的需求" class="headerlink" title="普通reducer怎样解决上面抛出的需求"></a>普通reducer怎样解决上面抛出的需求</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> reducer = <span class="function">(<span class="params">state, action</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">switch</span> (action.type) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'ADD_AGE'</span>:</span><br><span class="line">      <span class="keyword">const</span> &#123; members &#125; = state;</span><br><span class="line">      <span class="keyword">return</span> &#123;</span><br><span class="line">        ...state,</span><br><span class="line">        members: [</span><br><span class="line">          &#123;</span><br><span class="line">            ...members[<span class="number">0</span>],</span><br><span class="line">            age: members[<span class="number">0</span>].age + <span class="number">1</span>,</span><br><span class="line">          &#125;,</span><br><span class="line">          ...members.slice(<span class="number">1</span>),</span><br><span class="line">        ]</span><br><span class="line">      &#125;</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">      <span class="keyword">return</span> state</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="集合immer-reducer可以怎样写"><a href="#集合immer-reducer可以怎样写" class="headerlink" title="集合immer,reducer可以怎样写"></a>集合immer,reducer可以怎样写</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> reducer = <span class="function">(<span class="params">state, action</span>) =&gt;</span> produce(state, draft =&gt; &#123;</span><br><span class="line">  <span class="keyword">switch</span> (action.type) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'ADD_AGE'</span>:</span><br><span class="line">      draft.members[<span class="number">0</span>].age++;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>可以看到，通过 produce ，我们的代码量已经精简了很多；<br>不过仔细观察不难发现，利用 produce 能够先制造出 producer 的特点，代码还能更优雅：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> reducer = produce(<span class="function">(<span class="params">draft, action</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">switch</span> (action.type) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'ADD_AGE'</span>:</span><br><span class="line">      draft.members[<span class="number">0</span>].age++;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>好了，至此，Immer 优化 reducer 的方法也讲解完毕。</p>
+<p>Immer 的使用非常灵活，多多思考，相信你还可以发现 Immer 更多其他的妙用！</p>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ul>
+<li><a href="https://github.com/mweststrate/immer" target="_blank" rel="noopener">官方文档</a></li>
+<li><a href="https://hackernoon.com/introducing-immer-immutability-the-easy-way-9d73d8f71cb3" target="_blank" rel="noopener">Introducing Immer: Immutability the easy way</a></li>
+</ul>
+
+            
+            <!-- Pager -->
+            <ul class="pager">
+                
+                
+                <li class="next">
+                    <a href="/2018/10/09/MVVM双向数据绑定的实现方式/" >MVVM双向数据绑定的实现方式 &rarr;</a>
+                </li>
+                
+            </ul>
+
+
+
+        </div>
+        <!-- Sidebar container-->
+        <div class="
+    col-lg-3 col-lg-offset-0
+    col-md-3 col-md-offset-0
+    col-sm-12
+    col-xs-12
+    sidebar-container
+">
+            <!-- toc -->
+            <div class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top" role="complementary">
+                <h4>目录</h4>
+                <ul class="nav bs-docs-sidenav">
+
+                </ul>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/ronffy">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; 小贼先生 2018
+                    <br>
+                    Theme by <a href="https://ronffy.github.io">Ronffy</a>
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="https://cdn.staticfile.org/jquery/2.2.4/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/script.js"></script>
+
+
+
+
+</body>
+</html>
