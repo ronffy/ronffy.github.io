@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+
+<!-- Head -->
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/img/mylogo.png">
+
+    
+
+    <title>
+        
+        React16以后，应该以什么样的姿势写组件 |
+        
+        小贼先生
+    </title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- Custom Fonts -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Plugin CSS -->
+
+
+    <!-- Custom CSS -->
+    <!-- ↓这是stylus文件 -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/toc.css">
+
+
+</head>
+<body></body>
+
+
+<body>
+
+<!-- Header -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header {
+        background-color: #000;
+            /*post*/
+            
+    }
+
+    .navbar-custom .navbar-brand {
+        color: #fff;
+            /*post*/
+            
+    }
+
+    .navbar-custom .navbar-subtitle {
+        display: none;
+            
+    }
+
+    @media only screen and (min-width: 768px) {
+        .navbar-custom .nav li a {
+            color: #fff;
+                
+        }
+    }
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <!-- 文章 -->
+                
+                    <div class="post-heading">
+                        <h1>
+                            React16以后，应该以什么样的姿势写组件
+                        </h1>
+                        <h2 class="subheading">
+                            React16后，应该以什么样的姿势写组件
+                        </h2>
+                        <p class="subauthor">
+                            Posted by 
+                            <a href="https://github.com/ronffy">
+                                ronffy
+                            </a> on 2018-12-12
+                        </p>
+                    </div>
+                    <!-- 非文章 -->
+                    
+
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Nav -->
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">小贼先生</a>
+            <span class="navbar-subtitle">
+                我的code，一块砖一块砖垒成未来的样子
+            </span>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    
+                    <li><a href="/">首页</a></li>
+                    
+                    <li><a href="/archives">所有文章</a></li>
+                    
+                    <li><a href="/about">关于我</a></li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+<!-- Content -->
+<!-- Content -->
+<div class="container" data-type="post">
+    <div class="row">
+        <!-- Post container -->
+        <div class="
+                col-lg-8 col-lg-offset-1
+                col-md-8 col-md-offset-1
+                col-sm-12
+                col-xs-12
+                post-container
+            " style="padding-top: 15px;">
+
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本篇文章主旨在介绍 React16 之后版本中新增或修改的地方，所以对于 React16 之前版本的功能，本篇文章当作您已经充分了解了，不再赘述。</p>
+<h2 id="纯函数的PureComponent"><a href="#纯函数的PureComponent" class="headerlink" title="纯函数的PureComponent"></a>纯函数的PureComponent</h2><p>我们知道，对 React 组件的性能优化，<code>shouldComponentUpdate</code>函数是很重要的一拍，所以 React 才会在 <code>React.Component</code>的基础上增加了<code>React.PureComponent</code>，但是对于非class类的纯函数写法，却没法增加这样的便捷处理。<br>对于这个问题，React16 增加了<code>React.memo</code>这个高阶组件（该方法在V16.6.0后才支持）。</p>
+<p>一般使用方式：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> C = React.memo(<span class="function"><span class="params">props</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// xxx</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p><code>React.memo</code>的实现类似<code>React.PureComponent</code>，所以它内部是对对象进行浅比较。<br><code>React.memo</code>允许你自定义比较方法，如下：<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 函数的返回值为 true 时则更新组件，反之则不更新</span></span><br><span class="line"><span class="keyword">const</span> equalMethod = (prevProps, nextProps): <span class="function"><span class="params">boolean</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 定义你的比较逻辑</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> C = React.memo(<span class="function"><span class="params">props</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// xxx</span></span><br><span class="line">&#125;, equalMethod)</span><br></pre></td></tr></table></figure></p>
+<h2 id="生命周期函数做了哪些改动"><a href="#生命周期函数做了哪些改动" class="headerlink" title="生命周期函数做了哪些改动"></a>生命周期函数做了哪些改动</h2><p>首先统一下一些概念，React生命周期分为三类：挂载、更新、卸载，React16后又多了一个异常，我们一一看下。</p>
+<h3 id="挂载"><a href="#挂载" class="headerlink" title="挂载"></a>挂载</h3><h4 id="生命周期函数的执行顺序"><a href="#生命周期函数的执行顺序" class="headerlink" title="生命周期函数的执行顺序"></a>生命周期函数的执行顺序</h4><p><code>constructor</code> -&gt;  <code>getDerivedStateFromProps</code> -&gt; <code>render</code> -&gt; <code>componentDidMount</code></p>
+<p><code>render</code>和<code>componentDidMount</code>较 React16 之前无变化，不再过多介绍。对于挂载过程，我们着重看下<code>constructor</code>和<code>getDerivedStateFromProps</code>。</p>
+<h4 id="constructor-NaN"><a href="#constructor-NaN" class="headerlink" title="constructor"></a>constructor</h4><ol>
+<li><p>初始化 state<br>注意：应避免使用props给state赋值，这样的话， state 的初始化可以提到constructor外面处理  </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">  <span class="keyword">super</span>(props);</span><br><span class="line">  <span class="keyword">this</span>.state = &#123;</span><br><span class="line">    x: <span class="number">1</span>,</span><br><span class="line">    <span class="comment">// y: props.y, // 避免这样做，后面我们会讲应该怎样处理</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>给方法绑定this</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">  <span class="keyword">super</span>(props);</span><br><span class="line">  <span class="keyword">this</span>.handleClick = <span class="keyword">this</span>.handleClick.bind(<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>但是，以上两件事放到<code>constructor</code>外面处理会更简单些，如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">C</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  state = &#123;</span><br><span class="line">    x: <span class="number">1</span></span><br><span class="line">  &#125;</span><br><span class="line">  handleClick = <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// xxx</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>所以，React16 以后用到<code>constructor</code>的场景会少很多。</p>
+<h4 id="static-getDerivedStateFromProps"><a href="#static-getDerivedStateFromProps" class="headerlink" title="static getDerivedStateFromProps"></a>static getDerivedStateFromProps</h4><p>上面我们讲到，应避免使用props给state赋值，但是在 React16 前我们都是这么做的，现在如果不让这么操作了，那该在哪里处理这块逻辑呢？ React16 给出的答案就是 <code>static getDerivedStateFromProps</code> 静态方法，挂载组件时，该方法会在<code>render</code>前执行。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> C <span class="keyword">extends</span> React.Component &#123;</span><br><span class="line">  state = &#123;</span><br><span class="line">    y: <span class="number">0</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">static</span> getDerivedStateFromProps(props, state): State &#123;</span><br><span class="line">    <span class="keyword">if</span>(props.y !== state.y) &#123;</span><br><span class="line">      <span class="keyword">return</span> &#123;</span><br><span class="line">        y: props.y</span><br><span class="line">      &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样，有没有发现<code>componentWillReceiveProps</code>也没有用武之地了？是的，React16 把它也“删掉”了。（目前 React16 并未真的删除<code>componentWillReceiveProps</code>，只是提示用户该方法已经“out”，建议使用更好的<code>getSnapshotBeforeUpdate</code> 或 <code>getDerivedStateFromProps</code>）</p>
+<h3 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h3><h4 id="生命周期函数的执行顺序-1"><a href="#生命周期函数的执行顺序-1" class="headerlink" title="生命周期函数的执行顺序"></a>生命周期函数的执行顺序</h4><p><code>getDerivedStateFromProps</code> -&gt; <code>shouldComponentUpdate</code> -&gt; <code>render</code> -&gt; <code>getSnapshotBeforeUpdate</code> -&gt; <code>componentDidUpdate</code></p>
+<p>除了<code>getSnapshotBeforeUpdate</code>，<code>getDerivedStateFromProps</code>已经介绍过了，而其他的几个生命周期函数与 React16 之前无异，所以这里主要介绍下<code>getSnapshotBeforeUpdate</code>。</p>
+<h4 id="getSnapshotBeforeUpdate"><a href="#getSnapshotBeforeUpdate" class="headerlink" title="getSnapshotBeforeUpdate"></a>getSnapshotBeforeUpdate</h4><ul>
+<li>语法<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> C <span class="keyword">extends</span> React.Component &#123;</span><br><span class="line">  getSnapshotBeforeUpdate(prevProps, prevState): Snapshot &#123;</span><br><span class="line">    </span><br><span class="line">  &#125;</span><br><span class="line">  componentDidUpdate(prevProps, prevState, snapshot) &#123;</span><br><span class="line">    <span class="comment">// snapshot 是从 getSnapshotBeforeUpdate 的返回值，默认是 null</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="卸载"><a href="#卸载" class="headerlink" title="卸载"></a>卸载</h3><p><code>componentWillUnmount</code></p>
+<h3 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h3><p><code>componentDidCatch</code>这个生命周期是 React16 新增的，用于捕获组件树的异常，但无法捕获这个方法内的异常。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">componentDidCatch(error, info) &#123;</span><br><span class="line">  <span class="comment">// xxx</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+            
+            <!-- Pager -->
+            <ul class="pager">
+                
+                <li class="previous">
+                    <a href="/2018/12/12/鄙人喜欢的那些动漫/" >&larr; 鄙人喜欢的那些动漫</a>
+                </li>
+                
+                
+                <li class="next">
+                    <a href="/2018/12/05/Immer 实战讲解文档/" >Immer 实战讲解文档 &rarr;</a>
+                </li>
+                
+            </ul>
+
+
+
+        </div>
+        <!-- Sidebar container-->
+        <div class="
+    col-lg-3 col-lg-offset-0
+    col-md-3 col-md-offset-0
+    col-sm-12
+    col-xs-12
+    sidebar-container
+">
+            <!-- toc -->
+            <div class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top" role="complementary">
+                <h4>目录</h4>
+                <ul class="nav bs-docs-sidenav">
+
+                </ul>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/ronffy">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; 小贼先生 2018
+                    <br>
+                    Theme by <a href="https://ronffy.github.io">Ronffy</a>
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="https://cdn.staticfile.org/jquery/2.2.4/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/script.js"></script>
+
+
+
+
+</body>
+</html>

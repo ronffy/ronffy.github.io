@@ -17,7 +17,7 @@
 
     <title>
         
-        Immer 实战讲解 |
+        Immer 实战讲解文档 |
         
         小贼先生
     </title>
@@ -81,7 +81,7 @@
                 
                     <div class="post-heading">
                         <h1>
-                            Immer 实战讲解
+                            Immer 实战讲解文档
                         </h1>
                         <h2 class="subheading">
                             
@@ -185,7 +185,7 @@
 <li>深度拷贝，但是深拷贝的成本较高，会影响性能；</li>
 <li><a href="https://github.com/facebook/immutable-js" target="_blank" rel="noopener">ImmutableJS</a>，非常棒的一个不可变数据结构的库，可以解决上面的问题，But，跟 Immer 比起来，ImmutableJS 有两个较大的不足：  <ul>
 <li>需要使用者学习它的数据结构操作方式，没有 Immer 提供的使用原生对象的操作方式简单、易用；</li>
-<li>它的操作结果需要通过<code>toJS</code>方法才能得到原生对象，这使得在操作一个对象的时候，时刻要主要操作的是原生对象还是 ImmutableJS 的返回结果，稍不注意，就会产生意想不到的 bug。</li>
+<li>它的操作结果需要通过<code>toJS</code>方法才能得到原生对象，这使得在操作一个对象的时候，时刻要注意操作的是原生对象还是 ImmutableJS 的返回结果，稍不注意，就会产生意想不到的 bug。</li>
 </ul>
 </li>
 </ol>
@@ -193,7 +193,7 @@
 <h2 id="immer功能介绍"><a href="#immer功能介绍" class="headerlink" title="immer功能介绍"></a>immer功能介绍</h2><h3 id="安装immer"><a href="#安装immer" class="headerlink" title="安装immer"></a>安装immer</h3><p>欲善其事必先利其器，安装 Immer 是当前第一要务</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i --save immer</span><br></pre></td></tr></table></figure>
 <h3 id="immer如何fix掉那些不爽的问题"><a href="#immer如何fix掉那些不爽的问题" class="headerlink" title="immer如何fix掉那些不爽的问题"></a>immer如何fix掉那些不爽的问题</h3><p>Fix Q1、Q3<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> produce <span class="keyword">from</span> <span class="string">'immer'</span>;</span><br><span class="line"><span class="keyword">let</span> o1 = produce(currentState, draft =&gt; &#123;</span><br><span class="line">  draft.p.x = <span class="number">1</span>;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-<p>Fix Q2<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> produce <span class="keyword">from</span> <span class="string">'immer'</span>;</span><br><span class="line">fn(currentState); <span class="comment">// currentState 被修改了</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">o</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> produce(o, draft =&gt; &#123;</span><br><span class="line">    draft.p1 = <span class="number">1</span>;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>Fix Q2<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> produce <span class="keyword">from</span> <span class="string">'immer'</span>;</span><br><span class="line">fn(currentState);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">o</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> produce(o, draft =&gt; &#123;</span><br><span class="line">    draft.p1 = <span class="number">1</span>;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
 <p>Fix Q4<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> produce <span class="keyword">from</span> <span class="string">'immer'</span>;</span><br><span class="line"><span class="keyword">let</span> o4 = produce(currentState, draft =&gt; &#123;</span><br><span class="line">  draft.p.x.push(<span class="number">1</span>);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
 <p>是不是使用非常简单，通过小试牛刀，我们简单的了解了 Immer ，下面将对 Immer 的常用 api 分别进行介绍。</p>
 <h3 id="概念说明"><a href="#概念说明" class="headerlink" title="概念说明"></a>概念说明</h3><p>Immer 涉及概念不多，在此将涉及到的概念先行罗列出来，阅读本文章过程中遇到不明白的概念，可以随时来此处查阅。</p>
@@ -271,7 +271,7 @@
             <ul class="pager">
                 
                 <li class="previous">
-                    <a href="/2018/12/12/鄙人喜欢的那些动漫/" >&larr; 鄙人喜欢的那些动漫</a>
+                    <a href="/2018/12/12/React16以后，应该以什么样的姿势写组件/" >&larr; React16以后，应该以什么样的姿势写组件</a>
                 </li>
                 
                 
