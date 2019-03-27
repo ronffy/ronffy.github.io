@@ -164,23 +164,29 @@
                 post-container
             " style="padding-top: 15px;">
 
-            
-            <div id="container"></div>
+                  
+
+                       
+            <div id="gitmentContainer"></div>
             <link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+            <div id="gitmentInfos" style="display: none">
+                ,,,,
+            </div>
             <script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
-            <script>
+                <script>
+                var infos = document.getElementById('gitmentInfos').innerHTML.split(',');
                 var gitment = new Gitment({
-                    owner: 'ronffy',
-                    repo: 'gitment',
+                    owner: infos[0],
+                    repo: infos[1],
                     oauth: {
-                        client_id: 'e2f10335ba192c121bb4',
-                        client_secret: 'e9dd94dbc998cd14bf3c6067aecf09f23b3b8030',
+                        client_id: infos[2],
+                        client_secret: infos[3],
                     },
                 })
-                gitment.render('container')
-            </script>
-                    
+                gitment.render('gitmentContainer')
+                </script>
             
+
             <!-- Pager -->
             <ul class="pager">
                 

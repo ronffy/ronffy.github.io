@@ -170,23 +170,29 @@
 <p>小女主作为一位还没开过车的伪司机，每当有了睡小男主的冲动后，随手握住方向盘就踩油门，不管是法拉利还是拖拉机，百米加速只需2秒，绝不含糊，搞的吃瓜群众连拿板凳的时间都没有。</p>
 <p>对头，整部剧都是围绕这俩怪胎展开，像我等践行社会主义价值观的人民好群众看了以后简直是:直呼过瘾、欲罢不能！</p>
 <p>另: 每集都会有几首很不错的配乐，实时挑逗你的闷骚点[捂脸]</p>
+      
 
-            <div id="container"></div>
+                       
+            <div id="gitmentContainer"></div>
             <link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+            <div id="gitmentInfos" style="display: none">
+                ,,,,
+            </div>
             <script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
-            <script>
+                <script>
+                var infos = document.getElementById('gitmentInfos').innerHTML.split(',');
                 var gitment = new Gitment({
-                    owner: 'ronffy',
-                    repo: 'gitment',
+                    owner: infos[0],
+                    repo: infos[1],
                     oauth: {
-                        client_id: 'e2f10335ba192c121bb4',
-                        client_secret: 'e9dd94dbc998cd14bf3c6067aecf09f23b3b8030',
+                        client_id: infos[2],
+                        client_secret: infos[3],
                     },
                 })
-                gitment.render('container')
-            </script>
-                    
+                gitment.render('gitmentContainer')
+                </script>
             
+
             <!-- Pager -->
             <ul class="pager">
                 

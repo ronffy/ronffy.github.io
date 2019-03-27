@@ -187,23 +187,29 @@
 </li>
 </ul>
 <h3 id="展望"><a href="#展望" class="headerlink" title="展望"></a>展望</h3><p>虽然存在以上种种问题，还是要感谢京东前端团队能够开源一款React语法的多端开发框架，让我们React粉儿能够用React开发小程序；以上有些问题我已提了PR，如Q4，并且维护人员很快将PR进行了merge，凹凸团队对这个项目的重视程度和责任心可见一斑，所以我相信，凹凸团队一定可以把Taro不断完善的，加油！</p>
+      
 
-            <div id="container"></div>
+                       
+            <div id="gitmentContainer"></div>
             <link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+            <div id="gitmentInfos" style="display: none">
+                ,,,,
+            </div>
             <script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
-            <script>
+                <script>
+                var infos = document.getElementById('gitmentInfos').innerHTML.split(',');
                 var gitment = new Gitment({
-                    owner: 'ronffy',
-                    repo: 'gitment',
+                    owner: infos[0],
+                    repo: infos[1],
                     oauth: {
-                        client_id: 'e2f10335ba192c121bb4',
-                        client_secret: 'e9dd94dbc998cd14bf3c6067aecf09f23b3b8030',
+                        client_id: infos[2],
+                        client_secret: infos[3],
                     },
                 })
-                gitment.render('container')
-            </script>
-                    
+                gitment.render('gitmentContainer')
+                </script>
             
+
             <!-- Pager -->
             <ul class="pager">
                 

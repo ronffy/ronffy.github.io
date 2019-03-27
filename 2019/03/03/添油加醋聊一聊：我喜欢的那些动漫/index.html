@@ -188,23 +188,29 @@
 <h2 id="东京喰种"><a href="#东京喰种" class="headerlink" title="东京喰种"></a>东京喰种</h2><p>你有你的世界，我有我的地盘；今天你掌握着话语权，你们是正义，我们是邪恶；哪天我握住了话筒，谁又是白与黑？<br>摄人心魂的片头曲 - Unravel，极具空明感的开腔，而后急转，变为激烈的震撼摇滚，与该动漫风格极为贴合。  </p>
 <h2 id="魁拔"><a href="#魁拔" class="headerlink" title="魁拔"></a>魁拔</h2><p>从小看着日本动漫长大的，没想到长大了还只能看日本动漫，实属无奈。魁拔是想要给出多一个选择的，不过这个叫好不叫座的局面也着实让人尴尬，反正如果青青树使出吃牛的劲儿又出第四部，我是一定要去电影院支持一下的。</p>
 <h2 id="结尾"><a href="#结尾" class="headerlink" title="结尾"></a>结尾</h2><p>我为什么爱看动漫呢？<br>也许因为他可以塑造最符合作者心目中形象的角色，也许因为他可以更好的发挥天马行空的想象，还可能因为他可以无拘无束的制造令人叹为观止的恢宏场面，最可能因为“Nothing，就是喜欢喽”！</p>
+      
 
-            <div id="container"></div>
+                       
+            <div id="gitmentContainer"></div>
             <link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+            <div id="gitmentInfos" style="display: none">
+                ,,,,
+            </div>
             <script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
-            <script>
+                <script>
+                var infos = document.getElementById('gitmentInfos').innerHTML.split(',');
                 var gitment = new Gitment({
-                    owner: 'ronffy',
-                    repo: 'gitment',
+                    owner: infos[0],
+                    repo: infos[1],
                     oauth: {
-                        client_id: 'e2f10335ba192c121bb4',
-                        client_secret: 'e9dd94dbc998cd14bf3c6067aecf09f23b3b8030',
+                        client_id: infos[2],
+                        client_secret: infos[3],
                     },
                 })
-                gitment.render('container')
-            </script>
-                    
+                gitment.render('gitmentContainer')
+                </script>
             
+
             <!-- Pager -->
             <ul class="pager">
                 

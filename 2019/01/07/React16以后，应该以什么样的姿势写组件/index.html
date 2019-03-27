@@ -256,23 +256,29 @@
 <h3 id="新生命周期的完整demo"><a href="#新生命周期的完整demo" class="headerlink" title="新生命周期的完整demo"></a>新生命周期的完整demo</h3><p>看看穿上新生命周期这身新衣服后的样子吧</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">MyComponent</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">    <span class="keyword">super</span>(props);</span><br><span class="line">    <span class="comment">// 初始化state方式（1）</span></span><br><span class="line">    <span class="keyword">this</span>.state = &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">    </span><br><span class="line">  <span class="keyword">static</span> defaultProps = &#123;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 初始化state方式（2）</span></span><br><span class="line">  state = &#123;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">static</span> getDerivedStateFromProps(props, state) &#123;</span><br><span class="line">    <span class="keyword">return</span> state</span><br><span class="line">  &#125;</span><br><span class="line">  componentDidCatch(error, info) &#123;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">  render() &#123;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">  componentDidMount() &#123;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">  shouldComponentUpdate(nextProps, nextState) &#123;</span><br><span class="line">    </span><br><span class="line">  &#125;</span><br><span class="line">  getSnapshotBeforeUpdate(prevProps, prevState) &#123;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">  componentDidUpdate(prevProps, prevState, snapshot) &#123;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">  componentWillUnmount() &#123;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="Suspense"><a href="#Suspense" class="headerlink" title="Suspense"></a>Suspense</h2><h2 id="Hooks"><a href="#Hooks" class="headerlink" title="Hooks"></a>Hooks</h2><h2 id="time-slicing"><a href="#time-slicing" class="headerlink" title="time slicing"></a>time slicing</h2><p>【未完待续】</p>
+      
 
-            <div id="container"></div>
+                       
+            <div id="gitmentContainer"></div>
             <link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+            <div id="gitmentInfos" style="display: none">
+                ,,,,
+            </div>
             <script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
-            <script>
+                <script>
+                var infos = document.getElementById('gitmentInfos').innerHTML.split(',');
                 var gitment = new Gitment({
-                    owner: 'ronffy',
-                    repo: 'gitment',
+                    owner: infos[0],
+                    repo: infos[1],
                     oauth: {
-                        client_id: 'e2f10335ba192c121bb4',
-                        client_secret: 'e9dd94dbc998cd14bf3c6067aecf09f23b3b8030',
+                        client_id: infos[2],
+                        client_secret: infos[3],
                     },
                 })
-                gitment.render('container')
-            </script>
-                    
+                gitment.render('gitmentContainer')
+                </script>
             
+
             <!-- Pager -->
             <ul class="pager">
                 
