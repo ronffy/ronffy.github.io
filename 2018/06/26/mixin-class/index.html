@@ -190,27 +190,30 @@
 <h3 id="存在的问题-2"><a href="#存在的问题-2" class="headerlink" title="存在的问题"></a>存在的问题</h3><p>这种方式不会修改父类的原型对象，但是如果存在跟父类同名的方法，只会执行父类的，而不回执行被继承的类的方法，那么如何使相同方法分别执行呢？</p>
 <h2 id="super实现相同方法不覆盖"><a href="#super实现相同方法不覆盖" class="headerlink" title="super实现相同方法不覆盖"></a>super实现相同方法不覆盖</h2><h3 id="看代码-4"><a href="#看代码-4" class="headerlink" title="看代码"></a>看代码</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BaseModal</span> </span>&#123;</span><br><span class="line">  close() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'close'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> DragModalMixin = <span class="function">(<span class="params">extendsClass</span>) =&gt;</span> <span class="class"><span class="keyword">class</span> <span class="keyword">extends</span> <span class="title">extendsClass</span> </span>&#123;</span><br><span class="line">  hasLayer = <span class="literal">true</span>;</span><br><span class="line">  drag() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'drag'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">let</span> ScaleModalMixin = <span class="function">(<span class="params">extendsClass</span>) =&gt;</span> <span class="class"><span class="keyword">class</span> <span class="keyword">extends</span> <span class="title">extendsClass</span> </span>&#123;</span><br><span class="line">  scale() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'scale'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  close() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'scale-close'</span>);</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">super</span>.close) <span class="keyword">super</span>.close();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CustomModal</span> <span class="keyword">extends</span> <span class="title">ScaleModalMixin</span>(<span class="title">DragModalMixin</span>(<span class="title">BaseModal</span>)) </span>&#123;</span><br><span class="line">  close() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'custom-close'</span>);</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">super</span>.close) <span class="keyword">super</span>.close();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">do</span>() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'do'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> c = <span class="keyword">new</span> CustomModal();</span><br><span class="line"></span><br><span class="line">c.close(); <span class="comment">// custom-close   -&gt;   scale-close   -&gt;   close</span></span><br></pre></td></tr></table></figure>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Mixin是一种思想，用来实现代码高度可复用性，又可以用来解决多继承的问题，是一种非常灵活的设计模式，如果你多多琢磨，相信你也会发现一些其他的妙用的，看好你哟！</p>
-      
 
-                       
-            <div id="gitmentContainer"></div>
-            <link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
-            <div id="gitmentInfos" style="display: none">,,,</div>
-            <script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
-                <script>
-                var infos = document.getElementById('gitmentInfos').innerHTML.split(',');
-                var gitment = new Gitment({
-                    owner: infos[0],
-                    repo: infos[1],
-                    oauth: {
-                        client_id: infos[2],
-                        client_secret: infos[3],
-                    },
-                })
-                gitment.render('gitmentContainer')
-                </script>
+            <div id="disqus_thread"></div>
+            <script>
+
+                /**
+                *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+                *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+                /*
+                var disqus_config = function () {
+                this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+                this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                };
+                */
+                (function () { // DON'T EDIT BELOW THIS LINE
+                    var d = document, s = d.createElement('script');
+                    s.src = 'https://http-ronffy-github-io.disqus.com/embed.js';
+                    s.setAttribute('data-timestamp', +new Date());
+                    (d.head || d.body).appendChild(s);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by
+                    Disqus.</a></noscript>
+                    
             
-
             <!-- Pager -->
             <ul class="pager">
                 

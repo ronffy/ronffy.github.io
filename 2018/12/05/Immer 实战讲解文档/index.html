@@ -273,27 +273,30 @@
 <li><a href="https://github.com/mweststrate/immer" target="_blank" rel="noopener">官方文档</a></li>
 <li><a href="https://hackernoon.com/introducing-immer-immutability-the-easy-way-9d73d8f71cb3" target="_blank" rel="noopener">Introducing Immer: Immutability the easy way</a></li>
 </ul>
-      
 
-                       
-            <div id="gitmentContainer"></div>
-            <link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
-            <div id="gitmentInfos" style="display: none">ronffy,immer-tutorial,e2f10335ba192c121bb4,e9dd94dbc998cd14bf3c6067aecf09f23b3b8030</div>
-            <script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
-                <script>
-                var infos = document.getElementById('gitmentInfos').innerHTML.split(',');
-                var gitment = new Gitment({
-                    owner: infos[0],
-                    repo: infos[1],
-                    oauth: {
-                        client_id: infos[2],
-                        client_secret: infos[3],
-                    },
-                })
-                gitment.render('gitmentContainer')
-                </script>
+            <div id="disqus_thread"></div>
+            <script>
+
+                /**
+                *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+                *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+                /*
+                var disqus_config = function () {
+                this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+                this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                };
+                */
+                (function () { // DON'T EDIT BELOW THIS LINE
+                    var d = document, s = d.createElement('script');
+                    s.src = 'https://http-ronffy-github-io.disqus.com/embed.js';
+                    s.setAttribute('data-timestamp', +new Date());
+                    (d.head || d.body).appendChild(s);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by
+                    Disqus.</a></noscript>
+                    
             
-
             <!-- Pager -->
             <ul class="pager">
                 
